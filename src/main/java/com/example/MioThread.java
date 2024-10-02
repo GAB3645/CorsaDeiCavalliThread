@@ -8,7 +8,7 @@ public class MioThread extends Thread {
     }
 
     public void run() {
-        for (int i = 0; i < l; i++){
+        for (int i = 0; i <= l; i++){
             System.out.println(Thread.currentThread().getName() + " : " + i);
         }
     }
