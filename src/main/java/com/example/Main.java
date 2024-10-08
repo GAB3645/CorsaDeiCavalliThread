@@ -1,28 +1,37 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException {
+
         int l = 100;
-        MioThread cavallo1 = new MioThread(l);
-        MioThread cavallo2 = new MioThread(l);
-        MioThread cavallo3 = new MioThread(l);
-        MioThread cavallo4 = new MioThread(l);
-        MioThread cavallo5 = new MioThread(l);
-        MioThread cavallo6 = new MioThread(l);
 
-        cavallo1.setName("Cavallo 1");
-        cavallo2.setName("Cavallo 2");
-        cavallo3.setName("Cavallo 3");
-        cavallo4.setName("Cavallo 4");
-        cavallo5.setName("Cavallo 5");
-        cavallo6.setName("Cavallo 6");
+        List<MioThread> cavalli = new ArrayList<MioThread>();
+        
+        for (int i = 0; i < 6; i++) {
+            MioThread cavallo = new MioThread(l);
+            cavallo.setName("Cavallo " + (i + 1));
+            cavalli.add(cavallo);
+            cavallo.start();
+        }
 
-        cavallo1.start();
-        cavallo2.start();
-        cavallo3.start();
-        cavallo4.start();
-        cavallo5.start();
-        cavallo6.start();
+        for (MioThread c : cavalli) {
+            c.join();
+        }
 
+        List<String> classifica = new ArrayList<String>();
+
+        for (MioThread c : cavalli) {
+            classifica.add(c.getName() + " - " + c.getPosizione());
+        }
+
+        Collections.sort(classifica);
+        
+        System.out.println("Classifica di arrivo: " + classifica);
     }
 }
+
